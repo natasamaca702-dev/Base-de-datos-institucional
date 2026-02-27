@@ -5,8 +5,29 @@
    <title>Base de datos institucional</title>
  </head>
  <body>
+<h1>Datos desde Google Sheets</h1>
+<table border="1" id="tabla"></table>
 
-   <h1>Base de datos institucional</h1>
-   <p>La pagina funciona correctamente</p>
- </body>
+<script>
+fetch("https://script.google.com/macros/s/AKfycbzIVuNyYK0TO5CudcDd_eKAtaPOiz0wL7e0dr2HxSpavtMw0pMSgCZtuOa90FdA8G3_wA/exec")
+  .then(res => res.json())
+  .then(data => {
+    let tabla = document.getElementById("tabla");
+    let html = "<tr>";
+    Object.keys(data[0]).forEach(key => {
+      html += "<th>" + key + "</th>";
+    });
+    html += "</tr>";
+    data.forEach(fila => {
+      html += "<tr>";
+      Object.values(fila).forEach(valor => {
+        html += "<td>" + valor + "</td>";
+      });
+      html += "</tr>";
+    });
+    tabla.innerHTML = html;
+  });
+</script>
+
+</body>
  </html>
